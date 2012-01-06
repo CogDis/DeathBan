@@ -1,0 +1,8 @@
+name: DeathBan
+main: com.precipicegames.zeryl.deathban.DeathBan
+version: 1.0
+commands:
+  dban:
+    description: This is the deathban command
+    permission: op
+    usage: /deathban
