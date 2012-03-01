@@ -1,15 +1,10 @@
 package com.precipicegames.zeryl.deathban;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Timestamp;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
@@ -20,17 +15,18 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class DeathBan extends JavaPlugin {
 
     public FileConfiguration config;
-    private final DeathBanPlayerListener playerListener = new DeathBanPlayerListener(this);
-    private final DeathBanEntityListener entityListener = new DeathBanEntityListener(this);
     private File configFile = new File(this.getDataFolder(), "config.yml");
+    
+    private final DeathBanEntityListener deathbanentitylistener = new DeathBanEntityListener(this);
+    private final DeathBanPlayerListener deathbanplayerlistener = new DeathBanPlayerListener(this);
 
     public void onEnable() {
         PluginManager pm = getServer().getPluginManager();
         PluginDescriptionFile pdf = this.getDescription();
         buildConfig();
-        pm.registerEvent(Event.Type.PLAYER_PRELOGIN, playerListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Normal, this);
+        
+        pm.registerEvents(deathbanentitylistener, this);
+        pm.registerEvents(deathbanplayerlistener, this);
 
         System.out.println(pdf.getName() + " is now enabled");
     }

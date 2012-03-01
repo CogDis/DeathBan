@@ -5,14 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityListener;
 
 /**
  *
  * @author Zeryl
  */
-public class DeathBanEntityListener extends EntityListener {
+public class DeathBanEntityListener implements Listener {
     
     private final DeathBan plugin;
 
@@ -20,7 +21,7 @@ public class DeathBanEntityListener extends EntityListener {
         plugin = instance;
     }
 
-    @Override
+    @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
         Entity entity = event.getEntity();
 

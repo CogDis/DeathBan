@@ -3,14 +3,15 @@ package com.precipicegames.zeryl.deathban;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPreLoginEvent;
 
 /**
  *
  * @author Zeryl
  */
-public class DeathBanPlayerListener extends PlayerListener {
+public class DeathBanPlayerListener implements Listener {
 
     private final DeathBan plugin;
 
@@ -18,7 +19,7 @@ public class DeathBanPlayerListener extends PlayerListener {
         plugin = instance;
     }
 
-    @Override
+    @EventHandler
     public void onPlayerPreLogin(PlayerPreLoginEvent event) {
         if(plugin.config.isSet("players." + event.getName() + ".death")) {
             Timestamp unban = plugin.getUnban(event.getName());
